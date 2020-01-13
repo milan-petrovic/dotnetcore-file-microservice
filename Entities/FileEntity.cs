@@ -9,9 +9,7 @@ namespace FileMicroservice.Entities
   {
     public string Id { get; set; }
     public string Location { get; set; }
-
     public string Context { get; set; }
-
     public bool Available { get; set; }
   }
 }

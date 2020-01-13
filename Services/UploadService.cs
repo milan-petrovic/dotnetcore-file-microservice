@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using FileMicroservice.Constants;
 using System.Collections.Generic;
 using FileMicroservice.Entities;
 using System.Data;
@@ -34,7 +35,7 @@ namespace FileMicroservice.Services
           {
             file.CopyTo(fileStream);
             fileStream.Flush();
-            FileEntity fileEntity = CreateFileEntity(filePath);
+            fileEntity = CreateFileEntity(filePath);
             SaveFileToDB(fileEntity);
             return file.FileName + " uploaded successful!";
           }
@@ -86,7 +87,6 @@ namespace FileMicroservice.Services
       }
       catch (Exception)
       {
-
         throw;
       }
     }
@@ -95,9 +95,10 @@ namespace FileMicroservice.Services
       FileEntity fileEntity = new FileEntity();
       fileEntity.Location = filePath;
       fileEntity.Context = "testContext";
-      fileEntity.Available = false;
+      fileEntity.Available = true;
       return fileEntity;
     }
+
     private void FillData(SqlCommand command, FileEntity file)
     {
       command.Parameters.Add("@location", SqlDbType.VarChar);
