@@ -12,15 +12,18 @@ using System.Threading.Tasks;
 
 namespace FileMicroservice.Services
 {
+
   public interface IUploadService {
     string UploadFile(IFormFile file);
   }
+
   public class UploadService : IUploadService
   {
     public static IWebHostEnvironment _environment;
     public FileEntity fileEntity;
 
-    public UploadService(IWebHostEnvironment environment) {
+    public UploadService(IWebHostEnvironment environment)
+    {
       _environment = environment;
     }
 
@@ -38,7 +41,9 @@ namespace FileMicroservice.Services
             fileStream.Flush();
             fileEntity = CreateFileEntity(filePath);
             SaveFileToDB(fileEntity);
-            return file.FileName + " uploaded successful!";
+
+            string downloadLink = GenerateDownloadLink(fileEntity);
+            return file.FileName + " uploaded successful!" + " Download link: " + downloadLink;
           }
         }
         else
@@ -52,8 +57,8 @@ namespace FileMicroservice.Services
       }
     }
 
-    public void CreateUploadDirectory() {
-
+    public void CreateUploadDirectory()
+    {
       if (!Directory.Exists(_environment.WebRootPath + Constants.Constants.UploadFolderName))
       {
         Directory.CreateDirectory(_environment.WebRootPath + Constants.Constants.UploadFolderName);
@@ -80,10 +85,20 @@ namespace FileMicroservice.Services
                 @context,
                 @available
              )
+            declare @id as int;
+            set @id = SCOPE_IDENTITY();
+            select @id as id;
           ";
           FillData(command, file);
           connection.Open();
-          command.ExecuteNonQuery();
+   
+          using (SqlDataReader reader = command.ExecuteReader())
+          {
+            if (reader.Read())
+            {
+              file.Id = ReadId(reader);
+            }
+          }
         }
       }
       catch (Exception)
@@ -92,7 +107,8 @@ namespace FileMicroservice.Services
       }
     }
 
-    public FileEntity CreateFileEntity(string filePath) {
+    public FileEntity CreateFileEntity(string filePath)
+    {
       FileEntity fileEntity = new FileEntity();
       fileEntity.Location = filePath;
       fileEntity.Context = "testContext";
@@ -108,6 +124,16 @@ namespace FileMicroservice.Services
       command.Parameters["@location"].Value = file.Location;
       command.Parameters["@context"].Value = file.Context;
       command.Parameters["@available"].Value = file.Available;
+    }
+
+    private string GenerateDownloadLink(FileEntity fileEntity)
+    {
+      return Constants.Constants.DownloadRoute + fileEntity.Context + "/" + fileEntity.Id;
+    }
+
+    public int ReadId(SqlDataReader reader)
+    {
+      return (int)reader["id"];
     }
   }
 }

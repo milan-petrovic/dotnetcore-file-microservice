@@ -9,7 +9,7 @@ namespace FileMicroservice.Constants
 {
   public static class Constants
   {
-    public static String UploadFolderName
+    public static string UploadFolderName
     {
       get
       {
@@ -23,6 +23,14 @@ namespace FileMicroservice.Constants
       {
         var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         return builder.Build().GetSection("ConnectionStrings").GetSection("FileConnectionString").Value;
+      }
+    }
+
+    public static string DownloadRoute
+    {
+      get
+      {
+        return "https://localhost:44313/api/download/";
       }
     }
     

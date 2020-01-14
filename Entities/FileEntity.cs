@@ -8,7 +8,7 @@ namespace FileMicroservice.Entities
 {
   public class FileEntity
   {
-    public string Id { get; set; }
+    public int Id { get; set; }
     [Required]
     public string Location { get; set; }
     [Required]
