@@ -36,6 +36,7 @@ namespace FileMicroservice
         
             services.AddHttpContextAccessor();
             services.AddScoped<IUploadService, UploadService>();
+            services.AddScoped<IDownloadService, DownloadService>();
             
     }
 

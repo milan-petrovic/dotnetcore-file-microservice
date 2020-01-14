@@ -95,3 +95,4 @@ C:\Users\milan\source\repos\FileMicroservice\FileMicroservice\obj\Debug\netcorea
 C:\Users\milan\source\repos\FileMicroservice\FileMicroservice\obj\Debug\netcoreapp3.1\FileMicroservice.csproj.CopyComplete
 C:\Users\milan\source\repos\FileMicroservice\FileMicroservice\obj\Debug\netcoreapp3.1\FileMicroservice.dll
 C:\Users\milan\source\repos\FileMicroservice\FileMicroservice\obj\Debug\netcoreapp3.1\FileMicroservice.pdb
+C:\Users\milan\source\repos\FileMicroservice\FileMicroservice\obj\Debug\netcoreapp3.1\FileMicroservice.csprojAssemblyReference.cache
