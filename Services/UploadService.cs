@@ -14,7 +14,7 @@ namespace FileMicroservice.Services
 {
 
   public interface IUploadService {
-    string UploadFile(IFormFile file);
+    string UploadFile(IFormFile file, string context);
   }
 
   public class UploadService : IUploadService
@@ -27,7 +27,7 @@ namespace FileMicroservice.Services
       _environment = environment;
     }
 
-    public string UploadFile(IFormFile file)
+    public string UploadFile(IFormFile file, string context)
     {
       try
       {
@@ -39,7 +39,7 @@ namespace FileMicroservice.Services
           {
             file.CopyTo(fileStream);
             fileStream.Flush();
-            fileEntity = CreateFileEntity(filePath);
+            fileEntity = CreateFileEntity(filePath, context);
             SaveFileToDB(fileEntity);
 
             string downloadLink = GenerateDownloadLink(fileEntity);
@@ -107,11 +107,11 @@ namespace FileMicroservice.Services
       }
     }
 
-    public FileEntity CreateFileEntity(string filePath)
+    public FileEntity CreateFileEntity(string filePath, string context)
     {
       FileEntity fileEntity = new FileEntity();
       fileEntity.Location = filePath;
-      fileEntity.Context = "testContext";
+      fileEntity.Context = context;
       fileEntity.Available = true;
       return fileEntity;
     }

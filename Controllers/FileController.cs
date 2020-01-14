@@ -26,9 +26,11 @@ namespace FileMicroservice.Controllers
     }
 
     [Route("api/upload"), HttpPost]
-    public async Task<string> Upload(IFormFile formFile)
+    public async Task<string> Upload(IFormFile formFile, string context)
     {
-      return _uploadService.UploadFile(formFile);
+      //hard coded context
+      context = "context123";
+      return _uploadService.UploadFile(formFile, context);
     }
 
     [Route("api/download/{context}/{id}"), HttpGet]
