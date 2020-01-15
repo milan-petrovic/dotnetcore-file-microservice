@@ -25,6 +25,11 @@ namespace FileMicroservice.Services
     private IActionResult AsyncDownloadTask(string context, int id)
     {
       var path = GetPathFromDB(context, id);
+
+      if (path == null) {
+        return NotFound();
+      }
+
       var memory = new MemoryStream();
       using (var fileStream = new FileStream(path, FileMode.Open))
       {
@@ -100,7 +105,9 @@ namespace FileMicroservice.Services
                 {".jpg", "image/jpeg"},
                 {".jpeg", "image/jpeg"},
                 {".gif", "image/gif"},
-                {".csv", "text/csv"}
+                {".csv", "text/csv"},
+                {".rar", "application/x-rar-compressed" },
+                {".zip", "application/zip"}
             };
     }
   }

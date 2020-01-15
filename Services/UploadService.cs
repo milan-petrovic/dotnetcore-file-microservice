@@ -31,6 +31,10 @@ namespace FileMicroservice.Services
     {
       try
       {
+        if (String.IsNullOrEmpty(context)) {
+          return "Invalid context";
+        }
+
         if (file != null && file.Length > 0)
         {
           var filePath = _environment.WebRootPath + Constants.Constants.UploadFolderName + file.FileName;
