@@ -26,7 +26,8 @@ namespace FileMicroservice.Services
     {
       var path = GetPathFromDB(context, id);
 
-      if (path == null) {
+      if (path == null)
+      {
         return NotFound();
       }
 
@@ -62,7 +63,7 @@ namespace FileMicroservice.Services
         command.Parameters["@context"].Value = context;
         connection.Open();
 
-        using(SqlDataReader reader = command.ExecuteReader())
+        using (SqlDataReader reader = command.ExecuteReader())
         {
           if (reader.Read())
           {

@@ -12,7 +12,6 @@ using FileMicroservice.Services;
 
 namespace FileMicroservice.Controllers
 {
-  //[Route("api/[controller]")]
   [ApiController]
   public class FileController : ControllerBase
   {
@@ -29,7 +28,7 @@ namespace FileMicroservice.Controllers
     public async Task<string> Upload(IFormFile formFile, string context)
     {
       //hard coded context
-      context = "testcontexr123 ";
+      context = "testcontexr123";
       return _uploadService.UploadFile(formFile, context);
     }
 
